@@ -108,4 +108,4 @@ def health():
 
 if __name__ == "__main__":
     # For local dev only. In production, use gunicorn: gunicorn -w 2 -b 0.0.0.0:8000 app:app
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5002, debug=True)
