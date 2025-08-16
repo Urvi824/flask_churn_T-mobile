@@ -1,0 +1,10 @@
+{
+  "feature_order": [
+    "tenure",
+    "Contract",
+    "MonthlyCharges",
+    "TotalCharges",
+    "InternetService",
+    "PaymentMethod"
+  ]
+}

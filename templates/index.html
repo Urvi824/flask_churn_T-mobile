@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Churn Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Churn Prediction</h1>
+    {% if not features or features|length == 0 %}
+      <p class="warn">No features.json found or empty. The form shows an example input of two features. Update <code>config/features.json</code> and reload.</p>
+    {% endif %}
+
+    <form method="POST" action="/predict" class="card">
+      <div class="grid">
+        {% if features and features|length > 0 %}
+          {% for f in features %}
+            <label>
+              <span>{{ f }}</span>
+              <input type="text" name="{{ f }}" placeholder="Enter {{ f }}" />
+            </label>
+          {% endfor %}
+        {% else %}
+          <!-- Example fallback fields -->
+          <label>
+            <span>tenure</span>
+            <input type="number" name="tenure" placeholder="e.g., 12" />
+          </label>
+          <label>
+            <span>Contract</span>
+            <input type="text" name="Contract" placeholder="Month-to-month / One year / Two year" />
+          </label>
+        {% endif %}
+      </div>
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if result %}
+      <div class="card result">
+        {% if result.error %}
+          <h3>❌ Error</h3>
+          <pre>{{ result.error }}</pre>
+        {% else %}
+          <h3>✅ Prediction</h3>
+          <p><strong>Class:</strong> {{ result.prediction }}</p>
+          {% if result.probability is not none %}
+            <p><strong>Confidence:</strong> {{ (result.probability * 100) | round(2) }}%</p>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="card">
+      <h3>API Usage</h3>
+      <pre>POST /api/predict
+Content-Type: application/json
+
+{
+  "tenure": 12,
+  "Contract": "Month-to-month",
+  "...": "... other features ..."
+}</pre>
+    </div>
+  </div>
+</body>
+</html>
