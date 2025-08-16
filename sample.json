@@ -1,0 +1,12 @@
+{
+  "records": [
+    {
+      "tenure": 2,
+      "Contract": "Month-to-month",
+      "MonthlyCharges": 95.7,
+      "TotalCharges": 191.4,
+      "InternetService": "Fiber optic",
+      "PaymentMethod": "Electronic check"
+    }
+  ]
+}
